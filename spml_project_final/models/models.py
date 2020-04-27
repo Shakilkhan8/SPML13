@@ -165,7 +165,7 @@ class MRPMaterial(models.Model):
             location_id = self.env['stock.location'].search([('usage', '=', 'production')])
             # location_id = self.env['stock.location'].search([('location_id.name', '=', 'Virtual Locations')])
 
-            src_location_id = self.env['stock.location'].search([('name', '=', 'Stock'),('usage', '=', 'production')],limit=1)
+            src_location_id = self.env['stock.location'].search([('name', '=', 'Stock'),('usage', '=', 'internal')],limit=1)
             print(src_location_id.name)
             print(self.location_dest_id.name)
             sequence = self.env['ir.sequence'].search([
