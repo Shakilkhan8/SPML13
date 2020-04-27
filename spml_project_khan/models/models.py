@@ -177,8 +177,8 @@ class MRPMaterial(models.Model):
                 'warehouse_id':self.env.user.company_id.id,
                 'sequence_id': sequence.id,
                 'code': 'internal',
-                'default_location_src_id': location_id.id,
-                'default_location_dest_id': self.location_dest_id.id,
+                'default_location_src_id': self.location_dest_id.id,
+                'default_location_dest_id': location_id.id,
                 'sequence_code': 'RRM',
 
             })
@@ -190,8 +190,8 @@ class MRPMaterial(models.Model):
                 dropship_picking_type = self.env['stock.picking.type'].search([
                     ('name', '=', 'Request Raw Material')], limit=1)
                 picking = self.env['stock.picking'].create({
-                    'location_id': location_id.id,
-                    'location_dest_id': self.location_dest_id.id,
+                    'location_id': self.location_dest_id.id,
+                    'location_dest_id': location_id.id,
                     'partner_id': self._uid,
                     'origin': self.origin,
                     'picking_type_id': dropship_picking_type.id,
@@ -209,8 +209,8 @@ class MRPMaterial(models.Model):
                         'product_uom': i.product_id.uom_id.id,
                         'picking_id': picking.id,
                         'picking_type_id': dropship_picking_type.id,
-                        'location_id': location_id.id,
-                        'location_dest_id': self.location_dest_id.id,
+                        'location_id': self.location_dest_id.id,
+                        'location_dest_id': location_id.id,
                     })
                     picking.action_confirm()
 
@@ -219,8 +219,8 @@ class MRPMaterial(models.Model):
                 location_id = self.env['stock.location'].search([('usage', '=', 'production')])
                 print(dropship_picking_type.name)
                 picking = self.env['stock.picking'].create({
-                    'location_id': location_id.id,
-                    'location_dest_id': self.location_dest_id.id,
+                    'location_id': self.location_dest_id.id,
+                    'location_dest_id': location_id.id,
                     'partner_id': self._uid,
                     'origin': self.origin,
                     'picking_type_id': dropship_picking_type.id,
@@ -237,8 +237,8 @@ class MRPMaterial(models.Model):
                         'product_uom': i.product_id.uom_id.id,
                         'picking_id': picking.id,
                         'picking_type_id': dropship_picking_type.id,
-                        'location_id': location_id.id,
-                        'location_dest_id': self.location_dest_id.id,
+                        'location_id': self.location_dest_id.id,
+                        'location_dest_id': location_id.id,
                     })
                     print(move_receipt_1)
                     # move_line_paw = self.env['stock.move.line'].create({
@@ -296,7 +296,7 @@ class MRPMaterial(models.Model):
                 }
                 k = self.env['quality.check'].create(quality_check_data)
             else:
-                picking_type_id=self.env['stock.picking.type'].search([('sequence_code','=','RRM')])
+                picking_type_id=self.env['stock.picking.type'].search([('sequence_code','=','RRM')],limit=1)
                 test_type_id = self.env['quality.point.test_type'].search([('name','=','Pass - Fail')])
 
                 l=self.env['quality.point'].create({
