@@ -296,7 +296,7 @@ class MRPMaterial(models.Model):
                 }
                 k = self.env['quality.check'].create(quality_check_data)
             else:
-                picking_type_id=self.env['stock.picking.type'].search([('sequence_code','=','RRM')])
+                picking_type_id=self.env['stock.picking.type'].search([('sequence_code','=','RRM')],limit=1)
                 test_type_id = self.env['quality.point.test_type'].search([('name','=','Pass - Fail')])
 
                 l=self.env['quality.point'].create({
